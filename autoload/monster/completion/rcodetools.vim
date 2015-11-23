@@ -6,13 +6,24 @@ let g:monster#completion#rcodetools#backend = get(g:, "monster#completion#rcodet
 
 let g:monster#completion#rcodetools#complete_command = get(g:, "monster#completion#rcodetools#complete_command", "rct-complete")
 
+let g:monster#completion#rcodetools#show_info = get(g:, "monster#completion#rcodetools#show_info", 1)
+
 function! s:parse(text)
 	let parsed = split(a:text, '\t')
-	return {
-\		"word" : get(parsed, 0, ""),
-\		"menu" : get(parsed, 1, ""),
-\		"info" : a:text,
-\	}
+
+    if g:monster#completion#rcodetools#show_info == 1
+    	return {
+\   		"word" : get(parsed, 0, ""),
+\   		"menu" : get(parsed, 1, ""),
+\   		"info" : a:text,
+\   	}
+    else
+    	return {
+\   		"word" : get(parsed, 0, ""),
+\   		"menu" : get(parsed, 1, ""),
+\   	}
+    endif
+
 endfunction
 
 
